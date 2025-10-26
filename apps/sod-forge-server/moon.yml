@@ -1,0 +1,12 @@
+language: java
+layer: application
+
+project:
+  name: "sod-forge-server"
+  description: "Backend service for SodForge, built with Spring Boot."
+
+stack: "backend"
+
+tags:
+  - "Java-21"
+  - "Spring-Boot"

@@ -1,0 +1,30 @@
+$schema: 'https://moonrepo.dev/schemas/project.json'
+# moon.yml
+version: 1
+projects:
+  apps/sod-forge-server:
+    language: java
+    layer: application
+    tasks:
+      build:
+        command: 'apps/sod-forge-server/gradlew.bat :apps:sod-forge-server:build'
+        inputs:
+          - "src/**"
+          - "apps/sod-forge-server/build.gradle.kts"
+        outputs:
+          - "build/libs"
+
+  # apps/web:
+  #   language: typescript
+  #   type: application
+  #   tasks:
+  #     build:
+  #       command: yarn build
+  #       inputs:
+  #         - "apps/web/src/**"
+  #         - "apps/web/package.json"
+  #       outputs:
+  #         - "apps/web/dist"
+  #     dev:
+  #       command: yarn dev
+  #       local: true

@@ -1,0 +1,20 @@
+$schema: './cache/schemas/tasks.json'
+
+tasks:
+  build:
+    command: './gradlew.bat :apps:sod-forge-server:build'
+    options:
+      runFromWorkspaceRoot: true  # This is the key!
+    inputs:
+      - "apps/sod-forge-server/src/**"
+      - "apps/sod-forge-server/build.gradle.kts"
+    outputs:
+      - "apps/sod-forge-server/build/libs"
+
+  start:
+    command: './gradlew.bat :apps:sod-forge-server:bootRun'
+    options:
+      runFromWorkspaceRoot: true
+      runInCI: false  # Don't run in CI
+    deps:
+      - '~:build'  # Optional: build before starting

@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: sodforge-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: sodforge
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - sodforge-net
+
+  # sod-forge-server:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   container_name: sodforge-server
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sodforge
+  #     SPRING_DATASOURCE_USERNAME: postgres
+  #     SPRING_DATASOURCE_PASSWORD: postgres
+  #     SPRING_JPA_HIBERNATE_DDL_AUTO: update
+  #     SPRING_PROFILES_ACTIVE: docker
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - sodforge-net
+
+volumes:
+  postgres_data:
+
+networks:
+  sodforge-net:
+    driver: bridge
