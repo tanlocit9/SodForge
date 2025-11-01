@@ -17,6 +17,20 @@ services:
     networks:
       - sodforge-net
 
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"      # AMQP protocol
+      - "15672:15672"    # Web UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - sodforge-net
   # sod-forge-server:
   #   build:
   #     context: .
@@ -37,7 +51,8 @@ services:
 
 volumes:
   postgres_data:
-
+  rabbitmq_data:
+    
 networks:
   sodforge-net:
     driver: bridge
